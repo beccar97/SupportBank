@@ -14,20 +14,26 @@ import java.util.Date;
 class ProcessCSV {
     private static final Logger LOGGER = LogManager.getLogger(ProcessCSV.class);
 
+    private static String warningMessage = "";
+
     static void readCSV(String csvFile) throws IOException, ParseException {
         BufferedReader br;
         String line;
+        int lineNum = 1;
 
         LOGGER.info("Attempt to read " + csvFile);
 
         br = new BufferedReader(new FileReader(csvFile));
         br.readLine();
         while ((line = br.readLine()) != null) {
-            parseLine(line);
+            parseLine(line, lineNum);
+            lineNum++;
         }
+
+        if (!warningMessage.equals("")) System.out.println(warningMessage);
     }
 
-    private static void parseLine(String line) throws ParseException {
+    private static void parseLine(String line, int lineNum) throws ParseException {
         String cvsSplitBy = ",";
         String[] transaction = line.split(cvsSplitBy);
 
@@ -44,8 +50,9 @@ class ProcessCSV {
             narrative = transaction[3];
             amount = new BigDecimal(transaction[4]);
         } catch (Exception e){
-            LOGGER.error(String.format("Failed to parse line %s", line));
-            throw e;
+            LOGGER.error(String.format("Failed to parse line %d of input: %s",lineNum, line));
+            warningMessage += String.format("Could not parse line %d: \n %s\n", lineNum, line);
+            return;
         }
 
         Transaction transactionObj = new Transaction(date, from, to, narrative, amount);
