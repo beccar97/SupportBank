@@ -11,12 +11,12 @@ class AccountRegistrar {
 
     Account findAccount(String name) {
         Account userAccount;
-        if (accounts.containsKey(name)) {
-            userAccount = accounts.get(name);
+        if (accounts.containsKey(name.toLowerCase())) {
+            userAccount = accounts.get(name.toLowerCase());
         }
         else {
             userAccount = new Account(name);
-            accounts.put(name, userAccount);
+            accounts.put(name.toLowerCase(), userAccount);
         }
         return userAccount;
     }
