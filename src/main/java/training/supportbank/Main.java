@@ -8,9 +8,8 @@ public class Main {
         AccountRegistrar accountRegistrar = new AccountRegistrar();
         ProcessCSV.readCSV(accountRegistrar);
         accountRegistrar.listAll();
-
+        accountRegistrar.listTransactions("Todd");
     }
-
 }
 
 

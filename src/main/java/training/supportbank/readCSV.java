@@ -11,8 +11,8 @@ import java.util.Date;
 class ProcessCSV {
     static void readCSV(AccountRegistrar registrar) throws IOException, ParseException {
         String csvFile = "Transactions2014.csv";
-        BufferedReader br = null;
-        String line = "";
+        BufferedReader br;
+        String line;
 
         br = new BufferedReader(new FileReader(csvFile));
         br.readLine();

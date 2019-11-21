@@ -28,4 +28,9 @@ class AccountRegistrar {
             System.out.println(String.format("%-15s\t%8s", account.getName(), account.getBalanceString()));
         }
     }
+
+    void listTransactions(String name) {
+        Account account = findAccount(name);
+        account.printTransactions();
+    }
 }
