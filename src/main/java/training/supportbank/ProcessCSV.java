@@ -9,8 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 class ProcessCSV {
-    static void readCSV(AccountRegistrar registrar) throws IOException, ParseException {
-        String csvFile = "Transactions2014.csv";
+    static void readCSV(AccountRegistrar registrar, String csvFile) throws IOException, ParseException {
         BufferedReader br;
         String line;
 

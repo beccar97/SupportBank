@@ -7,9 +7,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
+
     public static void main(String[] args) throws IOException, ParseException {
+        String csvFile = (args.length == 1) ? args[0] : "Transactions2014.csv";
+
         AccountRegistrar accountRegistrar = new AccountRegistrar();
-        ProcessCSV.readCSV(accountRegistrar);
+        ProcessCSV.readCSV(accountRegistrar, csvFile);
+
         while (true) {
             getCommands(accountRegistrar);
         }
@@ -39,7 +43,7 @@ public class Main {
         }
         else {
             System.out.println(String.format("%s is invalid command.", command));
-            System.out.println("Accepted commands: `List All` and `List [Account]`");
+            System.out.println("Accepted commands: `List All` and `List [Account]`. To quit enter `Quit`.");
         }
 
     }
