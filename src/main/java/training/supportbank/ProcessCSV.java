@@ -9,23 +9,23 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 class ProcessCSV {
-    static void readCSV(AccountRegistrar registrar, String csvFile) throws IOException, ParseException {
+    static void readCSV(String csvFile) throws IOException, ParseException {
         BufferedReader br;
         String line;
 
         br = new BufferedReader(new FileReader(csvFile));
         br.readLine();
         while ((line = br.readLine()) != null) {
-            parseLine(line, registrar);
+            parseLine(line);
         }
     }
 
-    private static void parseLine(String line, AccountRegistrar registrar) throws ParseException {
+    private static void parseLine(String line) throws ParseException {
         String cvsSplitBy = ",";
         String[] transaction = line.split(cvsSplitBy);
         Date date = processDate(transaction[0]);
-        Account from = registrar.findAccount(transaction[1]);
-        Account to = registrar.findAccount(transaction[2]);
+        Account from = AccountRegistrar.findOrCreateAccount(transaction[1]);
+        Account to = AccountRegistrar.findOrCreateAccount(transaction[2]);
         String narrative = transaction[3];
         BigDecimal amount = new BigDecimal(transaction[4]);
 

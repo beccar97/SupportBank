@@ -3,13 +3,9 @@ package training.supportbank;
 import java.util.HashMap;
 
 class AccountRegistrar {
-    private static HashMap<String, Account> accounts;
+    private static HashMap<String, Account> accounts = new HashMap<>();
 
-    AccountRegistrar() {
-        accounts = new HashMap<>();
-    }
-
-    Account findAccount(String name) {
+    static Account findOrCreateAccount(String name) {
         Account userAccount;
         if (accounts.containsKey(name.toLowerCase())) {
             userAccount = accounts.get(name.toLowerCase());
@@ -21,7 +17,7 @@ class AccountRegistrar {
         return userAccount;
     }
 
-    void listAll() {
+    static void listAll() {
         System.out.println(String.format("%-15s\t%8s", "Name", "Balance"));
 
         for (Account account : accounts.values()) {
@@ -29,8 +25,8 @@ class AccountRegistrar {
         }
     }
 
-    void listTransactions(String name) {
-        Account account = findAccount(name);
+    static void listTransactions(String name) {
+        Account account = findOrCreateAccount(name);
         account.printTransactions();
     }
 }
