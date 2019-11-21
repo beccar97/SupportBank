@@ -1,8 +1,13 @@
 package training.supportbank;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.HashMap;
 
 class AccountRegistrar {
+    private static final Logger LOGGER = LogManager.getLogger(AccountRegistrar.class);
+
     private static HashMap<String, Account> accounts = new HashMap<>();
 
     static Account findOrCreateAccount(String name) {
@@ -17,7 +22,16 @@ class AccountRegistrar {
         return userAccount;
     }
 
+    private static Account findAccount(String name) throws Exception {
+        if (accounts.containsKey(name.toLowerCase())) {
+            return accounts.get(name.toLowerCase());
+        } else {
+            throw new Exception("Account does not exist");
+        }
+    }
+
     static void listAll() {
+        LOGGER.info("List all transactions");
         System.out.println(String.format("%-15s\t%8s", "Name", "Balance"));
 
         for (Account account : accounts.values()) {
@@ -26,7 +40,14 @@ class AccountRegistrar {
     }
 
     static void listTransactions(String name) {
-        Account account = findOrCreateAccount(name);
-        account.printTransactions();
+        Account account;
+        try {
+            account = findAccount(name);
+            account.printTransactions();
+        } catch (Exception e){
+            LOGGER.error(String.format("Failed to log transactions for %s. Error: %s", name, e));
+            System.out.println("Could not log transactions for %s. Please ensure this user exists.");
+
+        }
     }
 }

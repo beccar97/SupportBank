@@ -1,5 +1,8 @@
 package training.supportbank;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -8,6 +11,8 @@ import java.util.Date;
 import java.util.Locale;
 
 class Transaction {
+    private static final Logger LOGGER = LogManager.getLogger(Transaction.class);
+
     private Date date;
     private Account from;
     private Account to;
@@ -20,6 +25,8 @@ class Transaction {
         to = transTo;
         narrative = transNarrative;
         amount = transAmount;
+
+        LOGGER.info(String.format("New Transaction: %s: %s to %s for %s %s", stringDate(), from.getName(), to.getName(), narrative, getAmountString()));
     }
 
     void addToAccounts() {
