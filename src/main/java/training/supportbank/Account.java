@@ -40,10 +40,10 @@ class Account {
     }
 
     void addTransaction(Transaction transaction) {
-        if (transaction.getFrom() == this) {
+        if (transaction.getFrom().getName().equals(getName())) {
             balance = balance.subtract(transaction.getAmount());
             transactions.add(transaction);
-        } else if (transaction.getTo() == this) {
+        } else if (transaction.getTo().getName().equals(getName())) {
             balance = balance.add(transaction.getAmount());
             transactions.add(transaction);
         }
