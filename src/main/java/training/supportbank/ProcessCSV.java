@@ -45,13 +45,31 @@ class ProcessCSV {
 
         try {
             date = processDate(transaction[0]);
+        } catch (Exception e){
+            LOGGER.error(String.format("Failed to parse line %d of input due to invalid date.\n %s. \n %s",lineNum, line, e));
+            warningMessage += String.format("Could not parse line %d: invalid date %s.\n", lineNum, transaction[0]);
+            return;
+        }
+        try {
             from = AccountRegistrar.findOrCreateAccount(transaction[1]);
             to = AccountRegistrar.findOrCreateAccount(transaction[2]);
-            narrative = transaction[3];
-            amount = new BigDecimal(transaction[4]);
         } catch (Exception e){
-            LOGGER.error(String.format("Failed to parse line %d of input: %s",lineNum, line));
-            warningMessage += String.format("Could not parse line %d: \n %s\n", lineNum, line);
+            LOGGER.error(String.format("Failed to parse line %d of input due to invalid account.\n %s \n %s ",lineNum, line,e));
+            warningMessage += String.format("Could not parse line %d due to invalid account.\n", lineNum);
+            return;
+        }
+        try {
+            narrative = transaction[3];
+        } catch (Exception e){
+            LOGGER.error(String.format("Failed to parse line %d of input due to issue with narrative.\n %s\n %s ",lineNum, line, e));
+            warningMessage += String.format("Could not parse line %d due to issue with narrative.\n", lineNum);
+            return;
+        }
+        try {
+            amount = new BigDecimal(transaction[4]);
+        } catch (Exception e) {
+            LOGGER.error(String.format("Failed to parse line %d of input due to issue with transaction amount.\n%s\n%s", lineNum, line, e));
+            warningMessage += String.format("Could not parse line %d: invalid amount %s.\n", lineNum, transaction[4]);
             return;
         }
 
