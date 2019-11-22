@@ -13,13 +13,10 @@ public class Main {
     private static final Logger LOGGER = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) throws IOException, ParseException {
-        String csvFile = (args.length == 1) ? args[0] : "DodgyTransactions2015.csv";
-        ProcessFile.processFile(csvFile);
-
-        getCommands();
+        getRunCommands();
     }
 
-    private static void getCommands() {
+    private static void getRunCommands() throws IOException, ParseException {
         Scanner myObj = new Scanner(System.in);
         System.out.println("Enter command:");
 
@@ -30,7 +27,10 @@ public class Main {
         }
     }
 
-    private static void parseCommand(String command) {
+    private static void parseCommand(String command) throws IOException, ParseException {
+        Pattern rImport = Pattern.compile("Import File (\\w[\\w.]+\\w)", Pattern.CASE_INSENSITIVE);
+        Matcher importMatcher = rImport.matcher(command);
+
         Pattern rListAll = Pattern.compile("List All", Pattern.CASE_INSENSITIVE);
         Matcher allMatcher = rListAll.matcher(command);
 
@@ -40,7 +40,10 @@ public class Main {
         Pattern rExit = Pattern.compile("exit|q(uit)?", Pattern.CASE_INSENSITIVE);
         Matcher exitMatcher = rExit.matcher(command);
 
-        if (allMatcher.find()) {
+        if (importMatcher.find()) {
+            ProcessFile.processFile(importMatcher.group(1));
+        }
+        else if (allMatcher.find()) {
             AccountRegistrar.listAll();
         }
         else if (nameMatcher.find()) {
@@ -50,7 +53,7 @@ public class Main {
         }
         else {
             System.out.println(String.format("%s is invalid command.", command));
-            System.out.println("Accepted commands: `List All` and `List [Account]`. To quit enter `Quit`.");
+            System.out.println("Accepted commands: `Import File [filename]`, `List All` and `List [Account]`. To quit enter `Quit`.");
         }
     }
 

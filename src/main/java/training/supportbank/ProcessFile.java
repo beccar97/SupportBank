@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 class ProcessFile {
     private static final Logger LOGGER = LogManager.getLogger(ProcessFile.class);
     static void processFile(String fileName) throws IOException, ParseException {
+        LOGGER.info("Begin processing " + fileName);
 
         String fileType = getFileType(fileName);
 

@@ -40,7 +40,7 @@ class ProcessCSV {
         Date date;
         Account from;
         Account to;
-        String narrative = transaction[4];
+        String narrative = transaction[3];
         BigDecimal amount;
 
         try {

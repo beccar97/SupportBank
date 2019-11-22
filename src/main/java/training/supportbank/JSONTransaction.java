@@ -61,5 +61,4 @@ class JSONTransaction {
     private static Date processDate(String dateString) throws ParseException {
         return new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
     }
-
 }

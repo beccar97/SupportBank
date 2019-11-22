@@ -31,7 +31,12 @@ class AccountRegistrar {
     }
 
     static void listAll() {
-        LOGGER.info("List all transactions");
+        if (accounts.isEmpty()) {
+            LOGGER.info("Cannot log accounts, no accounts exist.");
+            System.out.println("No accounts present. Please import a file using the command `Import File [filename]`");
+            return;
+        }
+        LOGGER.info("List all account details");
         System.out.println(String.format("%-15s\t%8s", "Name", "Balance"));
 
         for (Account account : accounts.values()) {
@@ -46,7 +51,7 @@ class AccountRegistrar {
             account.printTransactions();
         } catch (Exception e){
             LOGGER.error(String.format("Failed to log transactions for %s. Error: %s", name, e));
-            System.out.println("Could not log transactions for %s. Please ensure this user exists.");
+            System.out.println(String.format("Could not log transactions for %s. Please ensure this user exists.", name));
 
         }
     }
