@@ -57,7 +57,7 @@ class Transaction {
     }
 
     void printTransaction() {
-        System.out.println(String.format("%s\t%-15s\t%-15s\t%-35s\t%8s", this.stringDate(), fromAccount.getName(), toAccount.getName(), narrative, getAmountString()));
+        System.out.println(String.format("%-10s\t%-15s\t%-15s\t%-35s\t%8s", this.stringDate(), fromAccount.getName(), toAccount.getName(), narrative, getAmountString()));
     }
 
 }

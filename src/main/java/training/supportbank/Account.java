@@ -36,6 +36,7 @@ class Account {
     void printTransactions() {
         LOGGER.info("Print transactions for " + getName());
         System.out.println(String.format("Transactions for %s", name));
+        System.out.println(String.format("%-10s\t%-15s\t%-15s\t%-35s\t%8s", "Date", "From", "To", "Narrative", "Amount"));
         transactions.forEach(Transaction::printTransaction);
     }
 

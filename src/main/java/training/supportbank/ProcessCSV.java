@@ -34,6 +34,7 @@ class ProcessCSV {
     }
 
     private static void parseLine(String line, int lineNum) throws ParseException {
+        LOGGER.debug(String.format("Parsing line %d of input: %s", lineNum, line));
         String cvsSplitBy = ",";
         String[] transaction = line.split(cvsSplitBy);
 

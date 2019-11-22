@@ -23,6 +23,7 @@ class JSONTransaction {
     }
 
     String processTransaction() {
+        LOGGER.debug(String.format("Processing transaction: %s %s %s %s %s", date, fromAccount, toAccount, narrative, amount));
         Date dateObj;
         Account from;
         Account to;

@@ -14,6 +14,7 @@ class ProcessFile {
         LOGGER.info("Begin processing " + fileName);
 
         String fileType = getFileType(fileName);
+        LOGGER.info(String.format("File type: %s", fileType));
 
         switch (fileType) {
             case "csv":
@@ -23,8 +24,8 @@ class ProcessFile {
                 ProcessJSON.processJSON(fileName);
                 break;
             default:
-                LOGGER.error(String.format("Invalid file type %s", fileType));
-                System.out.println(String.format("Invalid file type %s", fileType));
+                LOGGER.error("Invalid file type.");
+                System.out.println("Invalid file type.");
         }
     }
 

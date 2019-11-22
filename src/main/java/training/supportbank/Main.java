@@ -28,6 +28,7 @@ public class Main {
     }
 
     private static void parseCommand(String command) throws IOException, ParseException {
+        LOGGER.info(String.format("Received user command %s", command));
         Pattern rImport = Pattern.compile("Import File (\\w[\\w.]+\\w)", Pattern.CASE_INSENSITIVE);
         Matcher importMatcher = rImport.matcher(command);
 
@@ -52,6 +53,7 @@ public class Main {
             System.exit(0);
         }
         else {
+            LOGGER.info(String.format("Unknown command %s.", command));
             System.out.println(String.format("%s is invalid command.", command));
             System.out.println("Accepted commands: `Import File [filename]`, `List All` and `List [Account]`. To quit enter `Quit`.");
         }
