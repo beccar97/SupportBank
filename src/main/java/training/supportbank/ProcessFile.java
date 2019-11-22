@@ -3,6 +3,7 @@ package training.supportbank;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.regex.Matcher;
@@ -18,10 +19,20 @@ class ProcessFile {
 
         switch (fileType) {
             case "csv":
-                ProcessCSV.processCSV(fileName);
+                try {
+                    ProcessCSV.processCSV(fileName);
+                } catch (FileNotFoundException e) {
+                    LOGGER.warn(String.format("File not found: %s", fileName));
+                    System.out.println(String.format("File does not exist %s", fileName));
+                }
                 break;
             case "json":
-                ProcessJSON.processJSON(fileName);
+                try {
+                    ProcessJSON.processJSON(fileName);
+                } catch (FileNotFoundException e) {
+                    LOGGER.warn(String.format("File not found: %s", fileName));
+                    System.out.println(String.format("File does not exist %s", fileName));
+                }
                 break;
             default:
                 LOGGER.error("Invalid file type.");
