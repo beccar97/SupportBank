@@ -16,7 +16,7 @@ class ProcessCSV {
 
     private static String warningMessage = "";
 
-    static void readCSV(String csvFile) throws IOException, ParseException {
+    static void processCSV(String csvFile) throws IOException, ParseException {
         BufferedReader br;
         String line;
         int lineNum = 1;
@@ -40,7 +40,7 @@ class ProcessCSV {
         Date date;
         Account from;
         Account to;
-        String narrative;
+        String narrative = transaction[4];
         BigDecimal amount;
 
         try {
@@ -59,13 +59,6 @@ class ProcessCSV {
             return;
         }
         try {
-            narrative = transaction[3];
-        } catch (Exception e){
-            LOGGER.error(String.format("Failed to parse line %d of input due to issue with narrative.\n %s\n %s ",lineNum, line, e));
-            warningMessage += String.format("Could not parse line %d due to issue with narrative.\n", lineNum);
-            return;
-        }
-        try {
             amount = new BigDecimal(transaction[4]);
         } catch (Exception e) {
             LOGGER.error(String.format("Failed to parse line %d of input due to issue with transaction amount.\n%s\n%s", lineNum, line, e));
@@ -78,6 +71,6 @@ class ProcessCSV {
     }
 
     private static Date processDate(String dateString) throws ParseException {
-        return new SimpleDateFormat("dd/MM/yyy").parse(dateString);
+        return new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
     }
 }

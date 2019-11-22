@@ -13,8 +13,8 @@ public class Main {
     private static final Logger LOGGER = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) throws IOException, ParseException {
-        String csvFile = (args.length == 1) ? args[0] : "Transactions2014.csv";
-        ProcessCSV.readCSV(csvFile);
+        String csvFile = (args.length == 1) ? args[0] : "DodgyTransactions2015.csv";
+        ProcessFile.processFile(csvFile);
 
         getCommands();
     }

@@ -14,32 +14,32 @@ class Transaction {
     private static final Logger LOGGER = LogManager.getLogger(Transaction.class);
 
     private Date date;
-    private Account from;
-    private Account to;
+    private Account fromAccount;
+    private Account toAccount;
     private String narrative;
     private BigDecimal amount;
 
     Transaction(Date transDate, Account transFrom, Account transTo, String transNarrative, BigDecimal transAmount) {
         date = transDate;
-        from = transFrom;
-        to = transTo;
+        fromAccount = transFrom;
+        toAccount = transTo;
         narrative = transNarrative;
         amount = transAmount;
 
-        LOGGER.info(String.format("New Transaction: %s: %s to %s for %s %s", stringDate(), from.getName(), to.getName(), narrative, getAmountString()));
+        LOGGER.info(String.format("New Transaction: %s: %s to %s for %s %s", stringDate(), fromAccount.getName(), toAccount.getName(), narrative, getAmountString()));
     }
 
     void addToAccounts() {
-        from.addTransaction(this);
-        to.addTransaction(this);
+        fromAccount.addTransaction(this);
+        toAccount.addTransaction(this);
     }
 
-    Account getFrom() {
-        return from;
+    Account getFromAccount() {
+        return fromAccount;
     }
 
-    Account getTo() {
-        return to;
+    Account getToAccount() {
+        return toAccount;
     }
 
     BigDecimal getAmount() {
@@ -57,7 +57,7 @@ class Transaction {
     }
 
     void printTransaction() {
-        System.out.println(String.format("%s\t%-15s\t%-15s\t%-35s\t%8s", this.stringDate(), from.getName(), to.getName(), narrative, getAmountString()));
+        System.out.println(String.format("%s\t%-15s\t%-15s\t%-35s\t%8s", this.stringDate(), fromAccount.getName(), toAccount.getName(), narrative, getAmountString()));
     }
 
 }
